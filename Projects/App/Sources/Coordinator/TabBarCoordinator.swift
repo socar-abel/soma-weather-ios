@@ -17,7 +17,7 @@ protocol TabBarCoordinator: Coordinator {
 final class DefaultTabBarController: TabBarCoordinator {
     public struct Dependency {
         let navigationController: UINavigationController
-        let homeViewController: HomeViewController
+        let injector: Injector
         weak var finishDelegate: CoordinatorFinishDelegate?
     }
     
@@ -71,7 +71,7 @@ final class DefaultTabBarController: TabBarCoordinator {
         switch page {
         case .home:
             // 추후 homeCoordinator 로 변경
-            let homeViewController = dependency.homeViewController
+            let homeViewController = dependency.injector.resolve(HomeViewController.self)
             tabNavigationController.pushViewController(homeViewController, animated: true)
         default:
             let viewController = UIViewController()
