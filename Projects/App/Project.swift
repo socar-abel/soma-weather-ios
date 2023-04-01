@@ -18,6 +18,7 @@ let project = Project.makeModule(
         .project(target: "Search", path: .relativeToRoot("Projects/Search")),
         .project(target: "Domain", path: .relativeToRoot("Projects/Domain")),
         .project(target: "Data", path: .relativeToRoot("Projects/Data")),
+        .external(name: "Swinject")
     ],
     resources: ["Resources/**"],
     infoPlist: .file(path: "Support/Info.plist")

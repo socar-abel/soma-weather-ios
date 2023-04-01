@@ -14,7 +14,8 @@ let project = Project.makeModule(
     dependencies: [
         .project(target: "Common", path: .relativeToRoot("Projects/Common")),
         .project(target: "CommonUI", path: .relativeToRoot("Projects/CommonUI")),
-        .project(target: "Domain", path: .relativeToRoot("Projects/Domain"))
+        .project(target: "Domain", path: .relativeToRoot("Projects/Domain")),
+        .external(name: "SnapKit")
     ],
     resources: ["Resources/**"]
 )
