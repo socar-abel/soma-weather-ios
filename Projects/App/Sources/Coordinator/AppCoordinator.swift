@@ -50,7 +50,7 @@ final class DefaultAppCoordinator: AppCoordinator{
     func setTabBarCoordinator() {
         let dependency = DefaultTabBarController.Dependency.init(
             navigationController: navigationController,
-            homeViewController: dependency.injector.resolve(HomeViewController.self),
+            injector: dependency.injector,
             finishDelegate: self)
         let tabBarCoordinator = DefaultTabBarController(dependency: dependency)
         childCoordinators.append(tabBarCoordinator)

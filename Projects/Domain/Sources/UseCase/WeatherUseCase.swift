@@ -6,4 +6,25 @@
 //  Copyright © 2023 soma. All rights reserved.
 //
 
-import Foundation
+import RxSwift
+
+public protocol WeatherUseCase {
+    func getWeather() -> Single<WeatherVO>
+    func getForecast() -> Single<ForecastWeatherVO>
+}
+
+public final class DefaultWeatherUseCase: WeatherUseCase {
+    let repository: WeatherRepository
+    
+    public init(repository: WeatherRepository) {
+        self.repository = repository
+    }
+    
+    public func getWeather() -> Single<WeatherVO> {
+        return repository.getWeather().map{$0.toDomain()}
+    }
+    
+    public func getForecast() -> Single<ForecastWeatherVO> {
+        return repository.getForecast().map{$0.toDomain()}
+    }
+}

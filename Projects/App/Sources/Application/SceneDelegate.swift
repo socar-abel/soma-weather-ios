@@ -20,7 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         appCoordinator = DefaultAppCoordinator(dependency: .init(navigationController: navigationController, injector: injector))
         
-        injector.assemble([HomeAssembly()])
+        injector.assemble([DataAssembly(),
+                           DomainAssembly(),
+                           HomeAssembly()])
         appCoordinator?.start()
     }
 
