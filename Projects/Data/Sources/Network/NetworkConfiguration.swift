@@ -12,5 +12,5 @@ enum NetworkConfiguration {
     static let currentUrl = "/weather"
     static let forecastUrl = "/forecast"
     static let defaultLat: Float = 37.5
-    static let defaultLng: Float = 128.5
+    static let defaultLng: Float = 126.8
 }

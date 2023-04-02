@@ -9,7 +9,8 @@
 import RxSwift
 
 public protocol WeatherUseCase {
-    func getWeather() -> Single<WeatherVO>
+    func getWeather() -> Single<WeatherVO?>
+    func getTodayForecast() -> Single<ForecastWeatherVO>
     func getForecast() -> Single<ForecastWeatherVO>
 }
 
@@ -20,8 +21,12 @@ public final class DefaultWeatherUseCase: WeatherUseCase {
         self.repository = repository
     }
     
-    public func getWeather() -> Single<WeatherVO> {
-        return repository.getWeather().map{$0.toDomain()}
+    public func getWeather() -> Single<WeatherVO?> {
+        return repository.getForecast().map{$0.toCurrent()}
+    }
+    
+    public func getTodayForecast() -> Single<ForecastWeatherVO> {
+        return repository.getForecast().map{$0.toToday()}
     }
     
     public func getForecast() -> Single<ForecastWeatherVO> {
