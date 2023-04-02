@@ -35,6 +35,7 @@ final class DefaultAppCoordinator: AppCoordinator{
     }
     
     func start() {
+        setNavigationBar()
         setTabBarCoordinator()
         showTabbarFlow()
     }
@@ -66,6 +67,11 @@ final class DefaultAppCoordinator: AppCoordinator{
             break
         }
         return childCoordinator
+    }
+    
+    /// UINavigationController 의 NavigationBar 설정
+    func setNavigationBar() {
+        navigationController.setNavigationBarHidden(true, animated: true)
     }
 }
 

@@ -63,7 +63,15 @@ final class DefaultTabBarController: TabBarCoordinator {
 
     /// 각 탭바 아이템 설정
     private func configureTabBarItem(of page: TabBarPage) -> UITabBarItem {
-        return UITabBarItem(title: page.rawValue, image: nil, tag: page.pageOrderNumber())
+        switch page {
+        case .home:
+            return UITabBarItem(title: page.rawValue, image: UIImage(systemName: "house.fill"), tag: page.pageOrderNumber())
+        case .forecast:
+            return UITabBarItem(title: page.rawValue, image: UIImage(systemName: "cloud.sun.fill"), tag: page.pageOrderNumber())
+        case .search:
+            return UITabBarItem(title: page.rawValue, image: UIImage(systemName: "magnifyingglass.circle.fill"), tag: page.pageOrderNumber())
+        }
+        
     }
     
     /// 각 탭 flow 시작

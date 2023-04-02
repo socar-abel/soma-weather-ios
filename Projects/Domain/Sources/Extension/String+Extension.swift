@@ -9,11 +9,13 @@
 import Foundation
 
 extension String {
-    func formatDateString() -> String {
+    func parseToHourMinute() -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        guard let date = dateFormatter.date(from: self) else { return self }
-        dateFormatter.dateFormat = "MM월 dd일 HH시"
-        return dateFormatter.string(from: date)
+        if let date = dateFormatter.date(from: self) {
+            dateFormatter.dateFormat = "HH:mm"
+            return dateFormatter.string(from: date)
+        }
+        return nil
     }
 }
