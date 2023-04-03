@@ -9,6 +9,11 @@
 import Entity
 import Foundation
 
+enum DateParsingType {
+    case hourMinute
+    case date
+}
+
 // Value Object for Domain
 public struct ForecastWeatherVO {
     public let list: [WeatherVO]
@@ -35,11 +40,17 @@ public struct WeatherVO {
 }
 
 extension WeatherDTO {
-    func toDomain() -> WeatherVO {
-        let formattedDate = dateText?.parseToHourMinute()
+    func toDomain(_ type: DateParsingType) -> WeatherVO {
+        var formattedDate = ""
+        switch type {
+        case .hourMinute:
+            formattedDate = dateText?.parseToHourMinute() ?? DomainConfiguration.unknownString
+        case .date:
+            formattedDate = dateText?.parseToDate() ?? DomainConfiguration.unknownString
+        }
         let icon = weatherInfo?[0].icon ?? DomainConfiguration.unknownString
         let iconURL = DomainConfiguration.iconUrlStringPreffix + icon + DomainConfiguration.iconUrlStringSuffix
-        return WeatherVO(date: formattedDate ?? DomainConfiguration.unknownString,
+        return WeatherVO(date: formattedDate,
                      weatherDescription: weatherInfo?[0].description ?? DomainConfiguration.unknownString,
                      weatherIcon: iconURL,
                          temp: mainInfo?.temp?.kelvinToCelsius() ?? DomainConfiguration.unknownFloat,
@@ -50,23 +61,21 @@ extension WeatherDTO {
 }
 
 extension ForecastWeatherDTO {
-    func toDomain() -> ForecastWeatherVO {
+    func toForecast() -> ForecastWeatherVO {
         let weatherList = list ?? []
         return .init(list: Array(weatherList
-            .filter{$0.dateText == DomainConfiguration.defaultTime}
-            .map{$0.toDomain()}
-            .prefix(5)))
+            .map{$0.toDomain(.date)}))
     }
     
     func toCurrent() -> WeatherVO? {
         guard let weather = list?[0] else { return nil }
-        return weather.toDomain()
+        return weather.toDomain(.hourMinute)
     }
     
     func toToday() -> ForecastWeatherVO {
         let weatherList = list ?? []
         return .init(list: Array(weatherList
-            .map{$0.toDomain()}
+            .map{$0.toDomain(.hourMinute)}
             .prefix(8)))
     }
 }

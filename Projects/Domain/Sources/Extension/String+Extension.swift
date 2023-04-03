@@ -18,4 +18,15 @@ extension String {
         }
         return nil
     }
+    
+    func parseToDate() -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        guard let date = dateFormatter.date(from: self) else {
+            return nil
+        }
+        dateFormatter.dateFormat = "(E) HH:mm"
+        let formattedString = dateFormatter.string(from: date)
+        return formattedString
+    }
 }

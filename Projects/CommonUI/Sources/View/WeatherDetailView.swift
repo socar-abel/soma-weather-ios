@@ -12,14 +12,14 @@ import SnapKit
 import Kingfisher
 
 open class WeatherDetailView: UIView {
-    var superView = UIView()
-    var dateLabel = UILabel()
-    var weatherImageView = UIImageView()
-    var descriptionLabel = UILabel()
-    var tempLabel = UILabel()
-    var tempMaxLabel = UILabel()
-    var tempMinLabel = UILabel()
-    var humidityLabel = UILabel()
+    let superView = UIView()
+    let dateLabel = UILabel()
+    let weatherImageView = UIImageView()
+    let descriptionLabel = UILabel()
+    let tempLabel = UILabel()
+    let tempMaxLabel = UILabel()
+    let tempMinLabel = UILabel()
+    let humidityLabel = UILabel()
     let viewHeight: CGFloat = 360
     let viewWidth: CGFloat = 300
     
@@ -41,69 +41,33 @@ open class WeatherDetailView: UIView {
     }
 
     func initAttribute() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "MMMM d (EEE) HH"
+        let now = Date()
+        let formattedDate = dateFormatter.string(from: now)
         self.backgroundColor = .white
         self.layer.cornerRadius = 28
         superView.backgroundColor = .white
         superView.layer.cornerRadius = 28
         superView.layer.masksToBounds = false
         superView.layer.applyShadow(color: .black, alpha: 0.16, x: 0, y: 0, blur: 30)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "MMMM d (EEE) HH"
-        let now = Date()
-        let formattedDate = dateFormatter.string(from: now)
-        
-        dateLabel = {
-            let label = UILabel()
-            label.textColor = .black
-            label.text = formattedDate
-            label.font = UIFont.boldSystemFont(ofSize: 20)
-            return label
-        }()
-        
-        weatherImageView = {
-            let imageview = UIImageView()
-            imageview.backgroundColor = .white
-            imageview.contentMode = .scaleAspectFit
-            imageview.layer.masksToBounds = false
-            return imageview
-        }()
-        
-        descriptionLabel = {
-            let label = UILabel()
-            label.textColor = .black
-            label.font = UIFont.boldSystemFont(ofSize: 22)
-            return label
-        }()
-        
-        tempLabel = {
-            let label = UILabel()
-            label.textColor = .black
-            label.font = UIFont.systemFont(ofSize: 14)
-            return label
-        }()
-        
-        tempMaxLabel = {
-            let label = UILabel()
-            label.textColor = .black
-            label.font = UIFont.systemFont(ofSize: 14)
-            return label
-        }()
-        
-        tempMinLabel = {
-            let label = UILabel()
-            label.textColor = .black
-            label.font = UIFont.systemFont(ofSize: 14)
-            return label
-        }()
-        
-        humidityLabel = {
-            let label = UILabel()
-            label.textColor = .black
-            label.font = UIFont.systemFont(ofSize: 14)
-            return label
-        }()
+        dateLabel.textColor = .black
+        dateLabel.text = formattedDate
+        dateLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        weatherImageView.backgroundColor = .white
+        weatherImageView.contentMode = .scaleAspectFit
+        weatherImageView.layer.masksToBounds = false
+        descriptionLabel.textColor = .black
+        descriptionLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        tempLabel.textColor = .black
+        tempLabel.font = UIFont.systemFont(ofSize: 12)
+        tempMaxLabel.textColor = .black
+        tempMaxLabel.font = UIFont.systemFont(ofSize: 12)
+        tempMinLabel.textColor = .black
+        tempMinLabel.font = UIFont.systemFont(ofSize: 12)
+        humidityLabel.textColor = .black
+        humidityLabel.font = UIFont.systemFont(ofSize: 12)
     }
     
     
@@ -140,12 +104,12 @@ open class WeatherDetailView: UIView {
         }
         
         tempLabel.snp.makeConstraints {
-            $0.top.equalTo(descriptionLabel.snp.bottom).offset(10)
+            $0.top.equalTo(descriptionLabel.snp.bottom).offset(14)
             $0.centerX.equalToSuperview()
         }
         
         tempMaxLabel.snp.makeConstraints {
-            $0.top.equalTo(tempLabel.snp.bottom).offset(6)
+            $0.top.equalTo(tempLabel.snp.bottom).offset(8)
             $0.centerX.equalToSuperview()
         }
         

@@ -22,7 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         injector.assemble([DataAssembly(),
                            DomainAssembly(),
-                           HomeAssembly()])
+                           HomeAssembly(),
+                           ForecastAssembly()])
         appCoordinator?.start()
     }
 

@@ -30,6 +30,6 @@ public final class DefaultWeatherUseCase: WeatherUseCase {
     }
     
     public func getForecast() -> Single<ForecastWeatherVO> {
-        return repository.getForecast().map{$0.toDomain()}
+        return repository.getForecast().map{$0.toForecast()}
     }
 }
