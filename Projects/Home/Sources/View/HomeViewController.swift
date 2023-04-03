@@ -13,8 +13,8 @@ import RxSwift
 
 public class HomeViewController: BaseViewController {
     let viewModel: HomeViewModel
-    let weatherDetailView = WeatherDetailView()
-    let weatherCollectionView = WeatherCollectionView(frame: CGRect.zero, collectionViewLayout: WeatherCollectionViewFlowLayout())
+    let detailView = WeatherDetailView()
+    let collectionView = WeatherCollectionView(frame: CGRect.zero, collectionViewLayout: WeatherCollectionViewFlowLayout())
     
     public init(homeViewModel: HomeViewModel) {
         self.viewModel = homeViewModel
@@ -23,6 +23,9 @@ public class HomeViewController: BaseViewController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    public override func setupViewProperty() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = view.bounds
         gradientLayer.colors = [UIColor.white.cgColor,
@@ -33,21 +36,21 @@ public class HomeViewController: BaseViewController {
     }
     
     public override func setupHierarchy() {
-        [weatherDetailView, weatherCollectionView].forEach{ view.addSubview($0) }
+        [detailView, collectionView].forEach{ view.addSubview($0) }
     }
     
     public override func setupDelegate() {
-        weatherCollectionView.delegate = self
+        collectionView.delegate = self
     }
     
     public override func setupLayout() {
         let guide = view.safeAreaLayoutGuide
-        weatherDetailView.snp.makeConstraints {
+        detailView.snp.makeConstraints {
             $0.top.equalTo(guide.snp.top).offset(50)
             $0.centerX.equalToSuperview()
         }
-        weatherCollectionView.snp.makeConstraints {
-            $0.top.equalTo(weatherDetailView.snp.bottom).offset(60)
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(detailView.snp.bottom).offset(60)
             $0.left.equalToSuperview().offset(32)
             $0.right.equalToSuperview().offset(-32)
             $0.height.equalTo(100)
@@ -59,12 +62,12 @@ public class HomeViewController: BaseViewController {
             .subscribe(on: MainScheduler.instance)
             .withUnretained(self)
             .bind { (owner, response) in
-                owner.weatherDetailView.bind(weather: response)
+                owner.detailView.bind(weather: response)
             }.disposed(by: disposeBag)
         
         viewModel.todayForecastRelay
             .subscribe(on: MainScheduler.instance)
-            .bind(to: weatherCollectionView.rx.items(cellIdentifier: TodayWeatherCollectionCell.cellID, cellType: TodayWeatherCollectionCell.self)) { index, data, cell in
+            .bind(to: collectionView.rx.items(cellIdentifier: TodayWeatherCollectionCell.cellID, cellType: TodayWeatherCollectionCell.self)) { index, data, cell in
                 cell.bind(weather: data)
             }.disposed(by: disposeBag)
     }

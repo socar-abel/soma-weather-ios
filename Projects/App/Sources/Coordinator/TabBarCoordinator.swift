@@ -8,6 +8,7 @@
 
 import CommonUI
 import Home
+import Forecast
 import UIKit
 
 protocol TabBarCoordinator: Coordinator {
@@ -65,11 +66,11 @@ final class DefaultTabBarController: TabBarCoordinator {
     private func configureTabBarItem(of page: TabBarPage) -> UITabBarItem {
         switch page {
         case .home:
-            return UITabBarItem(title: page.rawValue, image: UIImage(systemName: "house.fill"), tag: page.pageOrderNumber())
+            return UITabBarItem(title: page.rawValue, image: CommonUIAssets.imgHouseFill, tag: page.pageOrderNumber())
         case .forecast:
-            return UITabBarItem(title: page.rawValue, image: UIImage(systemName: "cloud.sun.fill"), tag: page.pageOrderNumber())
+            return UITabBarItem(title: page.rawValue, image: CommonUIAssets.imgCloudSunFill, tag: page.pageOrderNumber())
         case .search:
-            return UITabBarItem(title: page.rawValue, image: UIImage(systemName: "magnifyingglass.circle.fill"), tag: page.pageOrderNumber())
+            return UITabBarItem(title: page.rawValue, image: CommonUIAssets.imgMagnifyingGlassCircleFill, tag: page.pageOrderNumber())
         }
         
     }
@@ -78,9 +79,23 @@ final class DefaultTabBarController: TabBarCoordinator {
     private func startTabCoordinator(of page: TabBarPage, to tabNavigationController: UINavigationController) {
         switch page {
         case .home:
-            // 추후 homeCoordinator 로 변경
             let homeViewController = dependency.injector.resolve(HomeViewController.self)
-            tabNavigationController.pushViewController(homeViewController, animated: true)
+            let dependency = DefaultHomeCoordinator.Dependency.init(homeViewController: homeViewController,
+                                                                    navigationController: tabNavigationController,
+                                                                    finishDelegate: self)
+            let homeCoordinator = DefaultHomeCoordinator(dependency: dependency)
+            homeCoordinator.start()
+            childCoordinators.append(homeCoordinator)
+            
+        case .forecast:
+            let forecastViewController = dependency.injector.resolve(ForecastViewController.self)
+            let dependency = DefaultForecastCoordinator.Dependency.init(forecastViewController: forecastViewController,
+                                                                        navigationController: tabNavigationController,
+                                                                        finishDelegate: self)
+            let forecastCoordinator = DefaultForecastCoordinator(dependency: dependency)
+            forecastCoordinator.start()
+            childCoordinators.append(forecastCoordinator)
+            
         default:
             let viewController = UIViewController()
             viewController.view.backgroundColor = .black
@@ -89,6 +104,7 @@ final class DefaultTabBarController: TabBarCoordinator {
     }
 }
 
+/// 탭바 페이지 종류
 enum TabBarPage: String, CaseIterable {
     case home, forecast, search
     
@@ -111,5 +127,13 @@ enum TabBarPage: String, CaseIterable {
     
     func tabIconName() -> String {
         return self.rawValue
+    }
+}
+
+
+/// 자식 코디네이터가 종료되었을 때 처리
+extension DefaultTabBarController: CoordinatorFinishDelegate {
+    func coordinatorDidFinish(childCoordinator: Coordinator) {
+        self.childCoordinators = self.childCoordinators.filter{ $0.type != childCoordinator.type }
     }
 }

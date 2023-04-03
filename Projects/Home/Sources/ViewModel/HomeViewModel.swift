@@ -12,13 +12,15 @@ import RxCocoa
 
 protocol HomeViewModelProtocol {
     func getWeather()
+    func getTodayForecastWeather()
 }
 
 public class HomeViewModel: HomeViewModelProtocol {
     private let disposeBag = DisposeBag()
     private let weatherUseCase: WeatherUseCase
+    public weak var homeCoordinator: HomeCoordinator?
     
-    /// 현재 날씨빙
+    /// 현재 날씨 옵저빙
     let weatherRelay = PublishRelay<WeatherVO>()
     
     /// 에러 옵저빙
@@ -30,7 +32,7 @@ public class HomeViewModel: HomeViewModelProtocol {
     public init(weatherUseCase: WeatherUseCase) {
         self.weatherUseCase = weatherUseCase
         getWeather()
-        getTodayforecastWeather()
+        getTodayForecastWeather()
     }
     
     /// 현재 날씨
@@ -45,7 +47,7 @@ public class HomeViewModel: HomeViewModelProtocol {
     }
     
     /// 시간별 오늘 날씨
-    func getTodayforecastWeather() {
+    func getTodayForecastWeather() {
         weatherUseCase.getTodayForecast()
             .subscribe(onSuccess: { [weak self] response in
                 self?.todayForecastRelay.accept(response.list)
