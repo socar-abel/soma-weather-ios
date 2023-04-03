@@ -12,6 +12,7 @@ import Moya
 enum WeatherAPI {
     case weather(lat: Float, lon: Float)
     case forecast(lat: Float, lon: Float)
+    case cityWeather(city: String)
 }
 
 extension WeatherAPI : TargetType {
@@ -21,7 +22,7 @@ extension WeatherAPI : TargetType {
     
     var path: String {
         switch self {
-        case .weather:
+        case .weather, .cityWeather:
             return NetworkConfiguration.currentUrl
         case .forecast:
             return NetworkConfiguration.forecastUrl
@@ -30,7 +31,7 @@ extension WeatherAPI : TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .weather, .forecast:
+        case .weather, .forecast, .cityWeather:
             return .get
         }
     }
@@ -40,6 +41,10 @@ extension WeatherAPI : TargetType {
         case .weather(let lat, let lon), .forecast(let lat, let lon):
             return .requestParameters(parameters: ["lat" : lat,
                                                    "lon": lon,
+                                                   "appid": NetworkConfiguration.appID],
+                                      encoding: URLEncoding.queryString)
+        case .cityWeather(let city):
+            return .requestParameters(parameters: ["q" : city,
                                                    "appid": NetworkConfiguration.appID],
                                       encoding: URLEncoding.queryString)
         }

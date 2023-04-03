@@ -26,13 +26,7 @@ public class HomeViewController: BaseViewController {
     }
     
     public override func setupViewProperty() {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = view.bounds
-        gradientLayer.colors = [UIColor.white.cgColor,
-                                UIColor(red: 160/255, green: 173/255, blue: 243/255, alpha: 1).cgColor]
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-        view.layer.insertSublayer(gradientLayer, at: 0)
+        view.layer.insertSublayer(CommonUIAssets.homeViewGradientLayer(view), at: 0)
     }
     
     public override func setupHierarchy() {

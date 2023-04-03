@@ -12,5 +12,5 @@ import RxSwift
 public protocol WeatherRepository {
     func getWeather() -> Single<WeatherDTO>
     func getForecast() -> Single<ForecastWeatherDTO>
-    //func getCityWeather() -> Single<WeatherVO>
+    func getCityWeather(city: String) -> Single<WeatherDTO>
 }

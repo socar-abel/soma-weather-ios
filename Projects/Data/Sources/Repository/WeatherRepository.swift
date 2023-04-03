@@ -28,4 +28,9 @@ public class DefaultWeatherRepository: WeatherRepository {
                                                  lon: NetworkConfiguration.defaultLng))
         .map(ForecastWeatherDTO.self)
     }
+    
+    public func getCityWeather(city: String) -> Single<WeatherDTO> {
+        return moyaProvider.rx.request(.cityWeather(city: city))
+        .map(WeatherDTO.self)
+    }
 }
