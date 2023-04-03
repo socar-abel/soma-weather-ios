@@ -13,7 +13,7 @@ import Kingfisher
 
 open class WeatherDetailView: UIView {
     let superView = UIView()
-    let dateLabel = UILabel()
+    let titleLabel = UILabel()
     let weatherImageView = UIImageView()
     let descriptionLabel = UILabel()
     let tempLabel = UILabel()
@@ -39,6 +39,10 @@ open class WeatherDetailView: UIView {
         tempMinLabel.text = "Lowest  \(Int(weather.tempMin))°C"
         humidityLabel.text = "Humidity  \(weather.humidity)%"
     }
+    
+    public func setTitleLabel(title: String?) {
+        titleLabel.text = title
+    }
 
     func initAttribute() {
         let dateFormatter = DateFormatter()
@@ -52,9 +56,9 @@ open class WeatherDetailView: UIView {
         superView.layer.cornerRadius = 28
         superView.layer.masksToBounds = false
         superView.layer.applyShadow(color: .black, alpha: 0.16, x: 0, y: 0, blur: 30)
-        dateLabel.textColor = .black
-        dateLabel.text = formattedDate
-        dateLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        titleLabel.textColor = .black
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        titleLabel.text = formattedDate
         weatherImageView.backgroundColor = .white
         weatherImageView.contentMode = .scaleAspectFit
         weatherImageView.layer.masksToBounds = false
@@ -83,16 +87,16 @@ open class WeatherDetailView: UIView {
             $0.edges.equalToSuperview()
         }
         
-        [dateLabel, weatherImageView, descriptionLabel, tempLabel, tempMaxLabel, tempMinLabel, humidityLabel]
+        [titleLabel, weatherImageView, descriptionLabel, tempLabel, tempMaxLabel, tempMinLabel, humidityLabel]
             .forEach { superView.addSubview($0) }
         
-        dateLabel.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(20)
             $0.centerX.equalToSuperview()
         }
         
         weatherImageView.snp.makeConstraints {
-            $0.top.equalTo(dateLabel.snp.bottom).offset(12)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(12)
             $0.width.equalTo(140)
             $0.height.equalTo(140)
             $0.centerX.equalToSuperview()

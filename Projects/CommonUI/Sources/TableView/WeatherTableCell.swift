@@ -40,14 +40,14 @@ open class WeatherTableCell: UITableViewCell {
         self.clipsToBounds = true
         superView.layer.cornerRadius = 8
         dateLabel.textColor = .black
-        dateLabel.font = UIFont.systemFont(ofSize: 10)
+        dateLabel.font = UIFont.boldSystemFont(ofSize: 12)
         weatherImageView.backgroundColor = .white
         weatherImageView.backgroundColor = .white
         weatherImageView.contentMode = .scaleAspectFit
         weatherImageView.layer.cornerRadius = 8
         weatherImageView.layer.applyShadow(color: .black, alpha: 0.16, x: 0, y: 0, blur: 16)
         descriptionLabel.textColor = .black
-        descriptionLabel.font = UIFont.systemFont(ofSize: 14)
+        descriptionLabel.font = UIFont.systemFont(ofSize: 12)
         descriptionLabel.textAlignment = .center
         tempLabel.textColor = .black
         tempLabel.font = UIFont.boldSystemFont(ofSize: 16)
@@ -69,7 +69,7 @@ open class WeatherTableCell: UITableViewCell {
         
         dateLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.width.equalTo(68)
+            $0.width.equalTo(80)
             $0.left.equalToSuperview().offset(16)
         }
         
@@ -81,7 +81,7 @@ open class WeatherTableCell: UITableViewCell {
         
         descriptionLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.width.equalTo(120)
+            $0.width.equalTo(110)
             $0.left.equalTo(weatherImageView.snp.right).offset(8)
         }
         

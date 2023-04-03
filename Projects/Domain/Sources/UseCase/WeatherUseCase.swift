@@ -12,6 +12,7 @@ public protocol WeatherUseCase {
     func getWeather() -> Single<WeatherVO?>
     func getTodayForecast() -> Single<ForecastWeatherVO>
     func getForecast() -> Single<ForecastWeatherVO>
+    func getCityWeather(city: String) -> Single<WeatherVO?>
 }
 
 public final class DefaultWeatherUseCase: WeatherUseCase {
@@ -31,5 +32,9 @@ public final class DefaultWeatherUseCase: WeatherUseCase {
     
     public func getForecast() -> Single<ForecastWeatherVO> {
         return repository.getForecast().map{$0.toForecast()}
+    }
+    
+    public func getCityWeather(city: String) -> Single<WeatherVO?> {
+        return repository.getCityWeather(city: city).map{$0.toDomain(.date)}
     }
 }

@@ -9,6 +9,7 @@
 import CommonUI
 import Home
 import Forecast
+import Search
 import UIKit
 
 protocol TabBarCoordinator: Coordinator {
@@ -96,10 +97,14 @@ final class DefaultTabBarController: TabBarCoordinator {
             forecastCoordinator.start()
             childCoordinators.append(forecastCoordinator)
             
-        default:
-            let viewController = UIViewController()
-            viewController.view.backgroundColor = .black
-            tabNavigationController.pushViewController(viewController, animated: true)
+        case .search:
+            let searchViewControlelr = dependency.injector.resolve(SearchViewController.self)
+            let dependency = DefaultSearchCoordinator.Dependency.init(searchViewController: searchViewControlelr,
+                                                                      navigationController: tabNavigationController,
+                                                                      finishDelegate: self)
+            let searchCoordinator = DefaultSearchCoordinator(dependency: dependency)
+            searchCoordinator.start()
+            childCoordinators.append(searchCoordinator)
         }
     }
 }
