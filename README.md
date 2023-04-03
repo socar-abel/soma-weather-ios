@@ -1,6 +1,6 @@
 ### Soma WeatherApp
 
-<p align="center"><img width="600" src="https://velog.velcdn.com/images/heyksw/post/75cd43ed-d96f-4aa7-bc12-a9932bb7fddf/image.png"></p>
+![](https://velog.velcdn.com/images/heyksw/post/75cd43ed-d96f-4aa7-bc12-a9932bb7fddf/image.png)
 
 - SW 마에스트로 13기에서, Best Practice 용도로 만든 날씨 앱
 
