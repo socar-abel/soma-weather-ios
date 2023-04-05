@@ -55,7 +55,7 @@
 
 ### 아키텍처
 
-![](https://velog.velcdn.com/images/heyksw/post/4b6ffccc-7c59-4132-b8a4-6e4cabe5f03a/image.png)
+![](https://velog.velcdn.com/images/heyksw/post/e64dc759-ea73-4a82-a670-f65ad03cbbd0/image.png)
 
 
 
