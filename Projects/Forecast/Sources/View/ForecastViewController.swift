@@ -44,10 +44,7 @@ public class ForecastViewController: BaseViewController {
     }
     
     public override func setupBind() {
-        viewModel.weatherListRelay
-            .subscribe(onNext: { response in
-            }).disposed(by: disposeBag)
-        
+        // 1주일간 일기 예보 데이터
         viewModel.weatherListRelay
             .bind(to: tableView.rx.items(cellIdentifier: WeatherTableCell.cellID,
                                          cellType: WeatherTableCell.self)) { index, data, cell in
