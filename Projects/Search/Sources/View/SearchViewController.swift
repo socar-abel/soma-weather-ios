@@ -84,12 +84,14 @@ public class SearchViewController: BaseViewController {
     }
     
     public override func setupBind() {
+        // 검색 버튼 탭
         searchButton.rx.tap
             .throttle(AppConfiguration.throttleTime, scheduler: MainScheduler.instance)
             .withUnretained(self).map{ $0.0 }
             .bind { $0.viewModel.requestCityWeather(city: $0.textField.text) }
             .disposed(by: disposeBag)
 
+        // 검색한 도시의 날씨 데이터
         viewModel.weatherRelay
             .subscribe(on: MainScheduler.instance)
             .withUnretained(self)

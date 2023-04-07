@@ -52,6 +52,7 @@ public class HomeViewController: BaseViewController {
     }
     
     public override func setupBind() {
+        // 현재 날씨 데이터
         viewModel.weatherRelay
             .subscribe(on: MainScheduler.instance)
             .withUnretained(self)
@@ -59,6 +60,7 @@ public class HomeViewController: BaseViewController {
                 owner.detailView.bind(weather: response)
             }.disposed(by: disposeBag)
         
+        // 시간별 오늘 날씨 데이터
         viewModel.todayForecastRelay
             .subscribe(on: MainScheduler.instance)
             .bind(to: collectionView.rx.items(cellIdentifier: TodayWeatherCollectionCell.cellID, cellType: TodayWeatherCollectionCell.self)) { index, data, cell in

@@ -11,9 +11,9 @@ import Foundation
 extension String {
     func parseToHourMinute() -> String? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.dateFormat = DomainConfiguration.dateFormatDefault
         if let date = dateFormatter.date(from: self) {
-            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.dateFormat = DomainConfiguration.dateFormatHourMinute
             return dateFormatter.string(from: date)
         }
         return nil
@@ -21,11 +21,11 @@ extension String {
     
     func parseToDate() -> String? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.dateFormat = DomainConfiguration.dateFormatDefault
         guard let date = dateFormatter.date(from: self) else {
             return nil
         }
-        dateFormatter.dateFormat = "(E) HH:mm"
+        dateFormatter.dateFormat = DomainConfiguration.dateFormatEraHourMinut
         let formattedString = dateFormatter.string(from: date)
         return formattedString
     }

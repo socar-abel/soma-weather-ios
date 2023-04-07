@@ -78,6 +78,6 @@ final class DefaultAppCoordinator: AppCoordinator{
 /// 자식 코디네이터가 종료되었을 때 실행할 메서드
 extension DefaultAppCoordinator: CoordinatorFinishDelegate {
     func coordinatorDidFinish(childCoordinator: Coordinator) {
-        
+        self.childCoordinators = self.childCoordinators.filter{ $0.type != childCoordinator.type }
     }
 }
