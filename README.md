@@ -27,7 +27,7 @@
 
 ### Tuist Graph - 모듈 구조
 
-<p align="center"><img width="500" src="https://velog.velcdn.com/images/heyksw/post/1c4ab565-354c-424c-b648-9d73bf9542ed/image.png"></p>
+<p align="center"><img width="500" src="https://velog.velcdn.com/images/heyksw/post/f8dcbe6e-5715-4c8e-bd15-c32231cf3646/image.png"></p>
 
 - **SomaWeather (앱 모듈)**
   - DI 주입, Coordinator 패턴 구현 - 피쳐 모듈간 의존성 없이 화면 전환
@@ -55,7 +55,7 @@
 
 ### 아키텍처
 
-![](https://velog.velcdn.com/images/heyksw/post/e64dc759-ea73-4a82-a670-f65ad03cbbd0/image.png)
+![](https://velog.velcdn.com/images/heyksw/post/347d12e2-de6a-4e4e-a7ee-026941c0272b/image.png)
 
 
 
