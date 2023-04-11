@@ -9,7 +9,7 @@
 import Foundation
 
 extension String {
-    func parseToHourMinute() -> String? {
+    public func parseToHourMinute() -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DomainConfiguration.dateFormatDefault
         if let date = dateFormatter.date(from: self) {
@@ -19,7 +19,7 @@ extension String {
         return nil
     }
     
-    func parseToDate() -> String? {
+    public func parseToDate() -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = DomainConfiguration.dateFormatDefault
         guard let date = dateFormatter.date(from: self) else {

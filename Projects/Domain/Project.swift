@@ -12,7 +12,6 @@ let project = Project.makeModule(
     name: "Domain",
     product: .staticFramework,
     dependencies: [
-        .project(target: "Entity", path: .relativeToRoot("Projects/Entity")),
         .external(name: "RxSwift")
     ],
     resources: ["Resources/**"]

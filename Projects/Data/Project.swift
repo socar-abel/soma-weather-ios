@@ -12,7 +12,6 @@ let project = Project.makeModule(
     name: "Data",
     product: .staticFramework,
     dependencies: [
-        .project(target: "Entity", path: .relativeToRoot("Projects/Entity")),
         .external(name: "Moya"),
         .external(name: "RxMoya")
     ],

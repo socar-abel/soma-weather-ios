@@ -23,18 +23,18 @@ public final class DefaultWeatherUseCase: WeatherUseCase {
     }
     
     public func getWeather() -> Single<WeatherVO?> {
-        return repository.getForecast().map{$0.toCurrent()}
+        return repository.getWeather()
     }
     
     public func getTodayForecast() -> Single<ForecastWeatherVO> {
-        return repository.getForecast().map{$0.toToday()}
+        return repository.getForecast()
     }
     
     public func getForecast() -> Single<ForecastWeatherVO> {
-        return repository.getForecast().map{$0.toForecast()}
+        return repository.getForecast()
     }
     
     public func getCityWeather(city: String) -> Single<WeatherVO?> {
-        return repository.getCityWeather(city: city).map{$0.toDomain(.date)}
+        return repository.getCityWeather(city: city)
     }
 }
