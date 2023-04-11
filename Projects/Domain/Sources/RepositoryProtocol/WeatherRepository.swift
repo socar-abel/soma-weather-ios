@@ -6,11 +6,10 @@
 //  Copyright © 2023 soma. All rights reserved.
 //
 
-import Entity
 import RxSwift
 
 public protocol WeatherRepository {
-    func getWeather() -> Single<WeatherDTO>
-    func getForecast() -> Single<ForecastWeatherDTO>
-    func getCityWeather(city: String) -> Single<WeatherDTO>
+    func getWeather() -> Single<WeatherVO?>
+    func getForecast() -> Single<ForecastWeatherVO>
+    func getCityWeather(city: String) -> Single<WeatherVO?>
 }

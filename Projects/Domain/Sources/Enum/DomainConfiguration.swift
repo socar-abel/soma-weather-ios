@@ -6,15 +6,15 @@
 //  Copyright © 2023 soma. All rights reserved.
 //
 
-enum DomainConfiguration {
-    static let unknownString = "Unknown"
-    static let unknownFloat: Float = 0
-    static let unknownInt: Int = 0
-    static let iconUrlStringPreffix = "https://openweathermap.org/img/wn/"
-    static let iconUrlStringSuffix = "@2x.png"
-    static let defaultTime = "12:00:00"
-    static let dateFormatDefault = "yyyy-MM-dd HH:mm:ss"
-    static let dateFormatHourMinute = "HH:mm"
-    static let dateFormatEraHourMinut = "(E) HH:mm"
+public enum DomainConfiguration {
+    public static let unknownString = "Unknown"
+    public static let unknownFloat: Float = 0
+    public static let unknownInt: Int = 0
+    public static let iconUrlStringPreffix = "https://openweathermap.org/img/wn/"
+    public static let iconUrlStringSuffix = "@2x.png"
+    public static let defaultTime = "12:00:00"
+    public static let dateFormatDefault = "yyyy-MM-dd HH:mm:ss"
+    public static let dateFormatHourMinute = "HH:mm"
+    public static let dateFormatEraHourMinut = "(E) HH:mm"
 }
 

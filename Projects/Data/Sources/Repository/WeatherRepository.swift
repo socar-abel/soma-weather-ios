@@ -6,31 +6,27 @@
 //  Copyright © 2023 soma. All rights reserved.
 //
 
-import Entity
 import Domain
 import RxSwift
 import Moya
 import RxMoya
 
 public class DefaultWeatherRepository: WeatherRepository {
-    let moyaProvider = MoyaProvider<WeatherAPI>()
+    let dataSource: WeatherDataSource
     
-    public init() {}
-    
-    public func getWeather() -> Single<WeatherDTO> {
-        return moyaProvider.rx.request(.forecast(lat: NetworkConfiguration.defaultLat,
-                                                lon: NetworkConfiguration.defaultLng))
-        .map(WeatherDTO.self)
+    public init(dataSource: WeatherDataSource) {
+        self.dataSource = dataSource
     }
     
-    public func getForecast() -> Single<ForecastWeatherDTO> {
-        return moyaProvider.rx.request(.forecast(lat: NetworkConfiguration.defaultLat,
-                                                 lon: NetworkConfiguration.defaultLng))
-        .map(ForecastWeatherDTO.self)
+    public func getWeather() -> Single<WeatherVO?> {
+        return dataSource.getForecast().map{$0.toCurrent()}
     }
     
-    public func getCityWeather(city: String) -> Single<WeatherDTO> {
-        return moyaProvider.rx.request(.cityWeather(city: city))
-        .map(WeatherDTO.self)
+    public func getForecast() -> Single<ForecastWeatherVO> {
+        return dataSource.getForecast().map{$0.toToday()}
+    }
+    
+    public func getCityWeather(city: String) -> Single<WeatherVO?> {
+        return dataSource.getCityWeather(city: city).map{$0.toDomain(.hourMinute)}
     }
 }
