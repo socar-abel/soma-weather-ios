@@ -6,7 +6,6 @@
 //  Copyright © 2023 soma. All rights reserved.
 //
 
-import Entity
 import Foundation
 
 // Value Object for Domain
