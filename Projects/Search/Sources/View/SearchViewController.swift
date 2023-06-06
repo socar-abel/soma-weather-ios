@@ -13,16 +13,15 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import ReactorKit
 
-public class SearchViewController: BaseViewController {
-    let viewModel: SearchViewModel
+public class SearchViewController: BaseViewController, View {
     let titleLabel = UILabel()
     let textField = UITextField()
     let searchButton = UIButton()
     let weatherDetailView = WeatherDetailView()
     
-    public init(viewModel: SearchViewModel) {
-        self.viewModel = viewModel
+    public override init() {
         super.init()
     }
     
@@ -83,22 +82,26 @@ public class SearchViewController: BaseViewController {
         }
     }
     
-    public override func setupBind() {
+    public func bind(reactor: SearchViewReactor) {
+        // MARK: Action
         // 검색 버튼 탭
         searchButton.rx.tap
             .throttle(AppConfiguration.throttleTime, scheduler: MainScheduler.instance)
-            .withUnretained(self).map{ $0.0 }
-            .bind { $0.viewModel.requestCityWeather(city: $0.textField.text) }
-            .disposed(by: disposeBag)
-
-        // 검색한 도시의 날씨 데이터
-        viewModel.weatherRelay
-            .subscribe(on: MainScheduler.instance)
             .withUnretained(self)
-            .bind { (owner, response) in
+            .map { $0.0 }
+            .compactMap { $0.textField.text }
+            .map { SearchViewReactor.Action.searchCityWeather($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+            
+        // MARK: State
+        reactor.state.compactMap{ $0.weather }
+            .distinctUntilChanged()
+            .withUnretained(self)
+            .subscribe(onNext: { (owner, response) in
                 owner.weatherDetailView.bind(weather: response)
                 owner.weatherDetailView.setTitleLabel(title: owner.textField.text)
-            }.disposed(by: disposeBag)
+            }).disposed(by: disposeBag)
     }
     
     /// 뷰를 누르면 키보드가 내려가도록

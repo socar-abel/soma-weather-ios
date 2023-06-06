@@ -12,14 +12,16 @@ import Domain
 
 public struct SearchAssembly: Assembly {
     public func assemble(container: Container) {
-        container.register(SearchViewModel.self) { resolver in
+        container.register(SearchViewReactor.self) { resolver in
             let useCase = resolver.resolve(WeatherUseCase.self)!
-            return SearchViewModel(weatherUseCase: useCase)
+            return SearchViewReactor(weatherUseCase: useCase)
         }
         
         container.register(SearchViewController.self) { resolver in
-            let searchViewModel = resolver.resolve(SearchViewModel.self)!
-            return SearchViewController(viewModel: searchViewModel)
+            let searchViewReactor = resolver.resolve(SearchViewReactor.self)!
+            let searchViewController = SearchViewController()
+            searchViewController.reactor = searchViewReactor
+            return searchViewController
         }
     }
 }

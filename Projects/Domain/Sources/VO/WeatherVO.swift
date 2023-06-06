@@ -16,7 +16,7 @@ public struct ForecastWeatherVO {
     }
 }
 
-public struct WeatherVO {
+public struct WeatherVO: Equatable {
     public let date: String
     public let weatherDescription: String
     public let weatherIcon: String
