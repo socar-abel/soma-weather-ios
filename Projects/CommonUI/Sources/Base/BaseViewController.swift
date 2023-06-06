@@ -29,7 +29,7 @@ public protocol BaseViewControllerProtocol: AnyObject, BaseViewItemProtocol {
 }
 
 open class BaseViewController: UIViewController, BaseViewControllerProtocol {
-    public let disposeBag = DisposeBag()
+    public var disposeBag = DisposeBag()
     
     public init() {
         super.init(nibName: nil, bundle: nil)

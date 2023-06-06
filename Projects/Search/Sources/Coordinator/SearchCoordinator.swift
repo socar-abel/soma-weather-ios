@@ -36,7 +36,6 @@ public class DefaultSearchCoordinator: SearchCoordinator {
         self.dependency = dependency
         self.navigationController = dependency.navigationController
         self.finishDelegate = dependency.finishDelegate
-        dependency.searchViewController.viewModel.searchCoordinator = self
     }
     
     public func start() {
