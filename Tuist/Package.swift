@@ -7,7 +7,11 @@ import PackageDescription
     import ProjectDescription
     import ProjectDescriptionHelpers
 
-    let packageSettings = PackageSettings()
+    let packageSettings = PackageSettings(
+        baseSettings: .settings(configurations: [
+            .debug(name: AppConfiguration.debugConfig)
+        ])
+    )
 #endif
 
 let package = Package(

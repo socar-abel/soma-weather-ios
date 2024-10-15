@@ -2,6 +2,7 @@ import ProjectDescription
 
 public extension Target {
 
+    /// `Target`을 생성한다.
     static func create(
         name: String,
         destinations: Destinations = [.iPhone],
