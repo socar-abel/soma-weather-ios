@@ -71,6 +71,9 @@ tuist generate 를 하고 싶다면 `./Tools/Tuist/2_tuist_generate.sh` 를 수�
 
 <p align="center"><img width="500" src="https://github.com/user-attachments/assets/ec9d959a-65bf-4b54-a126-7a2a3f60b62f"></p>
 
+*** 
+
+<p align="center"><img width="800" src="https://github.com/user-attachments/assets/bf021c94-2b1d-411e-a7bc-b6a3f934f636"></p>
 
 ***
 
