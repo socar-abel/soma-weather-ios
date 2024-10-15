@@ -13,9 +13,7 @@ let project = Project.create(
     product: .app,
     infoPlist: AppConfiguration.infoPlist,
     targetDependencies: [
-        .project(target: Module.home.name, path: Module.home.path),
         .project(target: Module.forecast.name, path: Module.forecast.path),
-        .project(target: Module.search.name, path: Module.search.path),
         .project(target: Module.domain.name, path: Module.domain.path),
         .project(target: Module.data.name, path: Module.data.path),
         .external(name: "Swinject")

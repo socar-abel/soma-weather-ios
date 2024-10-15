@@ -10,7 +10,10 @@ import ProjectDescriptionHelpers
 
 let workspace = Workspace(
     name: AppConfiguration.appName,
-    projects: ["Projects/**"],
+    projects: [
+        "Projects/**",
+        "DemoApps/**"
+    ],
     schemes: [
         .scheme(
             name: AppConfiguration.appName + AppConfiguration.debugConfig.toString(),

@@ -44,7 +44,7 @@ public class DefaultSearchCoordinator: SearchCoordinator {
     }
     
     func setNavigationBar() {
-        navigationController.setNavigationBarHidden(true, animated: false)
+        // Nothing
     }
     
     public func showSearchFlow() {
