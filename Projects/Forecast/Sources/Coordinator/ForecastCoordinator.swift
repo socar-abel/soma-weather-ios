@@ -45,7 +45,7 @@ public class DefaultForecastCoordinator: ForecastCoordinator {
     }
     
     func setNavigationBar() {
-        navigationController.setNavigationBarHidden(true, animated: false)
+        // Nothing
     }
     
     public func showForecastFlow() {

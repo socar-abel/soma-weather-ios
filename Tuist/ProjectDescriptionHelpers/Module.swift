@@ -18,6 +18,9 @@ public enum Module: CaseIterable {
     case commonUI
     case data
     case domain
+
+    // 데모 앱
+    case forecastDemoApp
 }
 
 public extension Module {
@@ -41,11 +44,20 @@ public extension Module {
             return "Data"
         case .domain:
             return "Domain"
+
+        // 데모 앱
+        case .forecastDemoApp:
+            return "ForecastDemoApp"
         }
     }
-    
+
     /// 모듈의 `relativeToRoot` path 를 반환한다.
     var path: Path {
-        .relativeToRoot("Projects/\(name)")
+        switch self {
+        case .forecastDemoApp:
+            return .relativeToRoot("Projects/DemoApps/\(name)")
+        default:
+            return .relativeToRoot("Projects/\(name)")
+        }
     }
 }
