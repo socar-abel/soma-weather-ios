@@ -12,16 +12,30 @@
 
 ### 프로젝트 빌드 방법
 
-1. tuist 설치   
-**curl -Ls https://install.tuist.io | bash**
+1. **git clone. 이 프로젝트를 개인의 로컬 맥에 클론 받는다.**
 
-2. git clone
+2. **터미널에서 클론 받은 프로젝트 위치로 간 뒤 아래 명령어 수행.**
 
-3. 클론 받은 프로젝트에서 터미널에 **tuist fetch** 를 실행 (SPM 등 의존성 설치)
+```
+./Tools/Tuist/0_install_tuist.sh
+```
 
-4. tuist fetch 가 끝나면 **tuist generate** 를 실행
+mise 와 tuist 를 설치하는 스크립트를 작성해두었다.  
 
-5. 프로젝트 활성화 완료
+brew 로 설치하기 때문에 로컬에 brew 가 설치 되어있어야 한다.
+
+3. **터미널에서 마찬가지로 아래 명령어 수행.**
+```
+./Tools/Tuist/2_tuist_generate.sh
+```
+
+tuist version 이 업데이트 되면서 mise 를 함께 사용하게 되었다.   
+
+mise 를 이용한 tuist generate 명령어를 스크립트로 작성해두었다.
+
+이 프로젝트에서 tuist edit 을 하고 싶다면 `./Tools/Tuist/1_tuist_edit.sh` 를,   
+
+tuist generate 를 하고 싶다면 `./Tools/Tuist/2_tuist_generate.sh` 를 수행하면 된다.
 
 ***
 
@@ -51,12 +65,18 @@
 - **CommonUI**
   - 피쳐에서 공통적으로 사용할 UI (Custom View, Table View 등)
 
+*** 
+
+### Tuist Graph - 모듈 구조 (데모 앱 추가 후, 업데이트 된 모듈 구조)
+
+<p align="center"><img width="500" src="https://github.com/user-attachments/assets/ec9d959a-65bf-4b54-a126-7a2a3f60b62f"></p>
+
+
 ***
 
 ### 아키텍처
 
 ![](https://velog.velcdn.com/images/heyksw/post/347d12e2-de6a-4e4e-a7ee-026941c0272b/image.png)
-
 
 
 > **모듈화**

@@ -8,18 +8,16 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.makeModule(
-    name: "SomaWeather",
-    platform: .iOS,
+let project = Project.create(
+    module: .app,
     product: .app,
-    dependencies: [
-        .project(target: "Home", path: .relativeToRoot("Projects/Home")),
-        .project(target: "Forecast", path: .relativeToRoot("Projects/Forecast")),
-        .project(target: "Search", path: .relativeToRoot("Projects/Search")),
-        .project(target: "Domain", path: .relativeToRoot("Projects/Domain")),
-        .project(target: "Data", path: .relativeToRoot("Projects/Data")),
+    infoPlist: AppConfiguration.infoPlist,
+    targetDependencies: [
+        .project(target: Module.home.name, path: Module.home.path),
+        .project(target: Module.forecast.name, path: Module.forecast.path),
+        .project(target: Module.search.name, path: Module.search.path),
+        .project(target: Module.domain.name, path: Module.domain.path),
+        .project(target: Module.data.name, path: Module.data.path),
         .external(name: "Swinject")
-    ],
-    resources: ["Resources/**"],
-    infoPlist: .file(path: "Support/Info.plist")
+    ]
 )

@@ -98,8 +98,8 @@ final class DefaultTabBarController: TabBarCoordinator {
             childCoordinators.append(forecastCoordinator)
             
         case .search:
-            let searchViewControlelr = dependency.injector.resolve(SearchViewController.self)
-            let dependency = DefaultSearchCoordinator.Dependency.init(searchViewController: searchViewControlelr,
+            let searchViewController = dependency.injector.resolve(SearchViewController.self)
+            let dependency = DefaultSearchCoordinator.Dependency.init(searchViewController: searchViewController,
                                                                       navigationController: tabNavigationController,
                                                                       finishDelegate: self)
             let searchCoordinator = DefaultSearchCoordinator(dependency: dependency)

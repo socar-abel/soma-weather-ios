@@ -8,13 +8,12 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.makeModule(
-    name: "CommonUI",
-    product: .staticFramework,
-    dependencies: [
-        .project(target: "Domain", path: .relativeToRoot("Projects/Domain")),
+let project = Project.create(
+    module: .commonUI,
+    product: .framework,
+    targetDependencies: [
+        .project(target: Module.domain.name, path: Module.domain.path),
         .external(name: "SnapKit"),
         .external(name: "Kingfisher")
-    ],
-    resources: ["Resources/**"]
+    ]
 )

@@ -1,78 +1,49 @@
 import ProjectDescription
 
 public extension Project {
-    static func makeModule(
-        name: String,
-        platform: Platform = .iOS,
+    
+    /// `Project`를 생성한다.
+    static func create(
+        module: Module,
         product: Product,
-        organizationName: String = "soma",
-        packages: [Package] = [],
-        deploymentTarget: DeploymentTarget? = .iOS(targetVersion: "15.0", devices: [.iphone, .ipad]),
-        dependencies: [TargetDependency] = [],
-        sources: SourceFilesList = ["Sources/**"],
-        resources: ResourceFileElements? = nil,
-        infoPlist: InfoPlist = .default
+        infoPlist: InfoPlist = .default,
+        targetResources: ResourceFileElements? = nil,
+        targetDependencies: [TargetDependency] = [],
+        targetBaseSettings: ProjectDescription.SettingsDictionary = [:]
     ) -> Project {
-        let settings: Settings = .settings(
-            base: [:],
-            configurations: [
-                .debug(name: .debug),
-                .release(name: .release)
-            ], defaultSettings: .recommended)
-
-        let appTarget = Target(
-            name: name,
-            platform: platform,
-            product: product,
-            bundleId: "\(organizationName).\(name)",
-            deploymentTarget: deploymentTarget,
-            infoPlist: infoPlist,
-            sources: sources,
-            resources: resources,
-            dependencies: dependencies
-        )
-
-        let testTarget = Target(
-            name: "\(name)Tests",
-            platform: platform,
-            product: .unitTests,
-            bundleId: "\(organizationName).\(name)Tests",
-            deploymentTarget: deploymentTarget,
-            infoPlist: .default,
-            sources: ["Tests/**"],
-            dependencies: [.target(name: name)]
-        )
-
-        let schemes: [Scheme] = [.makeScheme(target: .debug, name: name)]
-
-        let targets: [Target] = [appTarget, testTarget]
-
-        return Project(
-            name: name,
-            organizationName: organizationName,
-            packages: packages,
-            settings: settings,
-            targets: targets,
-            schemes: schemes
-        )
-    }
-}
-
-extension Scheme {
-    static func makeScheme(target: ConfigurationName, name: String) -> Scheme {
-        return Scheme(
-            name: name,
-            shared: true,
-            buildAction: .buildAction(targets: ["\(name)"]),
-            testAction: .targets(
-                ["\(name)Tests"],
-                configuration: target,
-                options: .options(coverage: true, codeCoverageTargets: ["\(name)"])
+        Project(
+            name: module.name,
+            organizationName: AppConfiguration.organizationName,
+            options: .options(
+                automaticSchemesOptions: .disabled
             ),
-            runAction: .runAction(configuration: target),
-            archiveAction: .archiveAction(configuration: target),
-            profileAction: .profileAction(configuration: target),
-            analyzeAction: .analyzeAction(configuration: target)
+            settings: .settings(
+                configurations: [
+                    .debug(
+                        name: AppConfiguration.debugConfig,
+                        settings: ["SWIFT_ACTIVE_COMPILATION_CONDITIONS": "DEBUG"]
+                   )
+                ]
+            ),
+            targets: [
+                Target.create(
+                    name: module.name,
+                    product: product,
+                    infoPlist: infoPlist,
+                    dependencies: targetDependencies
+                )
+            ],
+            /*
+             archiveAction, profileAction, analyzeAction 을 추가 세팅할 수 있으나, 예제 용 앱이기 때문에 설정하지 않았다.
+             또한, Debug / Qualify / Release 등 BuildConfig 를 더 세분화하는 게 좋을 것이다.
+             */
+            schemes: [
+                .scheme(
+                    name: module.name + AppConfiguration.debugConfig.toString(),
+                    buildAction: .buildAction(targets: [.project(path: module.path, target: module.name)]),
+                    runAction: .runAction(configuration: AppConfiguration.debugConfig)
+                )
+            ]
         )
     }
 }
