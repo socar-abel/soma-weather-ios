@@ -16,7 +16,7 @@ import PackageDescription
 
 let package = Package(
     name: "package",
-    platforms: [.iOS(.v13)],
+    platforms: [.iOS(.v15)],
     dependencies: [
         .package(url: "https://github.com/Swinject/Swinject.git", .upToNextMajor(from: "2.8.0")),
         .package(url: "https://github.com/SnapKit/SnapKit", .upToNextMajor(from: "5.0.1")),
