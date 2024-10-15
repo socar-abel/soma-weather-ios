@@ -8,13 +8,12 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.makeModule(
-    name: "Data",
-    product: .staticFramework,
-    dependencies: [
-        .project(target: "Domain", path: .relativeToRoot("Projects/Domain")),
+let project = Project.create(
+    module: Module.data,
+    product: .framework,
+    targetDependencies: [
+        .project(target: Module.domain.name, path: Module.domain.path),
         .external(name: "Moya"),
         .external(name: "RxMoya")
-    ],
-    resources: ["Resources/**"]
+    ]
 )

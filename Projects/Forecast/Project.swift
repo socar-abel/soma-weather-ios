@@ -8,13 +8,15 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.makeModule(
-    name: "Forecast",
-    product: .staticFramework,
-    dependencies: [
-        .project(target: "Common", path: .relativeToRoot("Projects/Common")),
-        .project(target: "CommonUI", path: .relativeToRoot("Projects/CommonUI")),
-        .project(target: "Domain", path: .relativeToRoot("Projects/Domain"))
-    ],
-    resources: ["Resources/**"]
+let project = Project.create(
+    module: .forecast,
+    product: .framework,
+    targetDependencies: [
+        .project(target: Module.domain.name, path: Module.domain.path),
+        .project(target: Module.common.name, path: Module.common.path),
+        .project(target: Module.commonUI.name, path: Module.commonUI.path),
+        .external(name: "SnapKit"),
+        .external(name: "RxSwift"),
+        .external(name: "RxCocoa")
+    ]
 )

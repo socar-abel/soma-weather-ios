@@ -6,10 +6,16 @@
 //
 
 import ProjectDescription
+import ProjectDescriptionHelpers
 
 let workspace = Workspace(
     name: "SomaWeather",
-    projects: [
-        "Projects/App"
+    projects: Module.allCases.map(\.path),
+    schemes: [
+        .scheme(
+            name: AppConfiguration.debugConfig.toString(),
+            buildAction: .buildAction(targets: [.project(path: Module.app.path, target: Module.app.name)]),
+            runAction: .runAction(configuration: AppConfiguration.debugConfig)
+        )
     ]
 )
