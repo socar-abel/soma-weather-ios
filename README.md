@@ -48,11 +48,9 @@ tuist generate 를 하고 싶다면 `./Tools/Tuist/2_tuist_generate.sh` 를 수�
   - AppCoordinator, TabBarCoordinator
 - **Domain (도메인 모듈)** 
   - VO, UseCase, RepositoryProtocol 등
-  - UseCase 에서 DTO 를 VO 로 변환
-- **Entity (엔티티 모듈)**
-  - DTO
 - **Data (데이터 모듈)** 
   - RepositoryImpl, Network 등
+  - UseCase 에서 DTO 를 VO 로 변환
 - **Home (홈 모듈)**
   - HomeView, HomeViewModel (현재 날씨)
   - 현재 날씨
